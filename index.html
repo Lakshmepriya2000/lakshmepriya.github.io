@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lakshmepriya R · DevOps Engineer</title>
+<meta name="description" content="DevOps Engineer specializing in AWS cloud infrastructure, CI/CD automation, and DevSecOps." />
+<style>
+  :root {
+    --c-primary: #1F4E79;
+    --c-accent: #2E75B6;
+    --c-accent-light: #5B9BD5;
+    --c-text: #1A202C;
+    --c-text-muted: #4A5568;
+    --c-text-faint: #718096;
+    --c-bg: #FFFFFF;
+    --c-bg-alt: #F7FAFC;
+    --c-bg-soft: #EDF2F7;
+    --c-border: #E2E8F0;
+    --c-border-soft: #EDF2F7;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.04);
+    --shadow-lg: 0 10px 25px -5px rgba(0,0,0,0.08), 0 4px 10px -3px rgba(0,0,0,0.04);
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--c-text);
+    background: var(--c-bg);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  code, .mono { font-family: "SF Mono", Menlo, Consolas, monospace; }
+
+  /* Nav */
+  nav.topnav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid transparent;
+    transition: border-color .25s, box-shadow .25s;
+  }
+  nav.topnav.scrolled { border-bottom-color: var(--c-border); box-shadow: var(--shadow-sm); }
+  nav .nav-inner { max-width: 1200px; margin: 0 auto; padding: 18px 32px;
+    display: flex; align-items: center; justify-content: space-between; }
+  nav .brand { font-weight: 700; font-size: 18px; color: var(--c-primary); letter-spacing: -.01em; cursor: pointer; }
+  nav .brand span { color: var(--c-accent); }
+  nav .nav-links { display: flex; gap: 28px; }
+  nav .nav-links a {
+    color: var(--c-text-muted); text-decoration: none; font-size: 14px; font-weight: 500;
+    position: relative; padding: 4px 0; transition: color .2s;
+  }
+  nav .nav-links a:hover { color: var(--c-primary); }
+  nav .nav-links a.active { color: var(--c-primary); }
+  nav .nav-links a.active::after {
+    content: ''; position: absolute; bottom: -2px; left: 0; right: 0;
+    height: 2px; background: var(--c-accent); border-radius: 2px;
+  }
+  .menu-btn { display: none; background: none; border: none; cursor: pointer; padding: 8px; color: var(--c-text); }
+  .mobile-menu {
+    display: none; padding: 12px 32px 20px; border-top: 1px solid var(--c-border);
+    flex-direction: column; gap: 14px; background: white;
+  }
+  .mobile-menu a { color: var(--c-text-muted); text-decoration: none; font-size: 15px; font-weight: 500; padding: 6px 0; }
+  nav.menu-open .mobile-menu { display: flex; }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    padding: 120px 32px 80px; position: relative; overflow: hidden;
+    background: linear-gradient(135deg, #F7FAFC 0%, #EDF2F7 50%, #E6F0F9 100%);
+  }
+  .hero::before {
+    content: ''; position: absolute; top: -50%; right: -20%; width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(46,117,182,0.08) 0%, transparent 70%);
+    border-radius: 50%; pointer-events: none;
+  }
+  .hero::after {
+    content: ''; position: absolute; bottom: -30%; left: -10%; width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(31,78,121,0.06) 0%, transparent 70%);
+    border-radius: 50%; pointer-events: none;
+  }
+  .hero-inner { max-width: 1200px; width: 100%; position: relative; z-index: 1; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px;
+    background: rgba(255,255,255,0.7); border: 1px solid var(--c-border);
+    border-radius: 100px; font-size: 13px; color: var(--c-text-muted); font-weight: 500;
+    margin-bottom: 24px; backdrop-filter: blur(8px);
+  }
+  .hero-eyebrow .dot { width: 8px; height: 8px; background: #10B981; border-radius: 50%;
+    box-shadow: 0 0 0 4px rgba(16,185,129,0.2); animation: pulse 2s infinite; }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 4px rgba(16,185,129,0.2); }
+    50% { box-shadow: 0 0 0 8px rgba(16,185,129,0.05); }
+  }
+  .hero h1 {
+    font-size: clamp(40px, 7vw, 76px); font-weight: 800; line-height: 1.05;
+    letter-spacing: -0.025em; color: var(--c-text); margin-bottom: 20px;
+  }
+  .hero h1 .accent {
+    background: linear-gradient(135deg, var(--c-primary), var(--c-accent));
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero .subtitle {
+    font-size: clamp(18px, 2.4vw, 24px); color: var(--c-text-muted);
+    font-weight: 500; margin-bottom: 16px; max-width: 720px;
+  }
+  .hero .desc {
+    font-size: 16px; color: var(--c-text-faint); margin-bottom: 36px; max-width: 640px; line-height: 1.7;
+  }
+  .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 48px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px; padding: 13px 22px;
+    border-radius: var(--radius-sm); font-size: 15px; font-weight: 600;
+    text-decoration: none; cursor: pointer; transition: all .2s; border: none;
+  }
+  .btn-primary { background: var(--c-primary); color: white; }
+  .btn-primary:hover { background: var(--c-accent); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+  .btn-secondary { background: white; color: var(--c-text); border: 1px solid var(--c-border); }
+  .btn-secondary:hover { border-color: var(--c-accent); color: var(--c-primary); transform: translateY(-1px); }
+
+  .hero-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; max-width: 720px;
+    padding-top: 32px; border-top: 1px solid var(--c-border); }
+  .stat .num {
+    font-size: clamp(24px, 3.2vw, 32px); font-weight: 800; color: var(--c-primary);
+    letter-spacing: -.02em; line-height: 1.1;
+  }
+  .stat .label { font-size: 13px; color: var(--c-text-faint); margin-top: 4px; font-weight: 500; }
+
+  /* Sections */
+  section { padding: 100px 32px; scroll-margin-top: 80px; }
+  section.alt { background: var(--c-bg-alt); }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .section-header { margin-bottom: 56px; }
+  .section-tag {
+    display: inline-block; font-size: 13px; font-weight: 600; color: var(--c-accent);
+    letter-spacing: .12em; text-transform: uppercase; margin-bottom: 12px;
+  }
+  .section-title {
+    font-size: clamp(32px, 4.5vw, 44px); font-weight: 800;
+    color: var(--c-text); letter-spacing: -.02em; line-height: 1.15; margin-bottom: 12px;
+  }
+  .section-desc { font-size: 17px; color: var(--c-text-muted); max-width: 680px; line-height: 1.7; }
+
+  /* Reveal animation */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  /* About */
+  .about-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 64px; align-items: start; }
+  .about-text p { color: var(--c-text-muted); font-size: 16px; line-height: 1.8; margin-bottom: 16px; }
+  .about-text p strong { color: var(--c-text); font-weight: 600; }
+  .about-card {
+    background: white; border: 1px solid var(--c-border); border-radius: var(--radius);
+    padding: 28px; box-shadow: var(--shadow-sm);
+  }
+  .about-card h4 { font-size: 14px; font-weight: 600; color: var(--c-text-faint);
+    text-transform: uppercase; letter-spacing: .08em; margin-bottom: 16px; }
+  .info-row { display: flex; justify-content: space-between; padding: 12px 0;
+    border-bottom: 1px solid var(--c-border-soft); font-size: 14px; }
+  .info-row:last-child { border-bottom: none; }
+  .info-row .k { color: var(--c-text-faint); }
+  .info-row .v { color: var(--c-text); font-weight: 500; }
+
+  /* Skills */
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+  .skill-card {
+    background: white; border: 1px solid var(--c-border); border-radius: var(--radius);
+    padding: 24px; transition: all .25s; box-shadow: var(--shadow-sm);
+  }
+  .skill-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--c-accent-light); }
+  .skill-icon {
+    width: 44px; height: 44px; border-radius: 10px; display: flex;
+    align-items: center; justify-content: center; margin-bottom: 16px;
+    background: linear-gradient(135deg, rgba(46,117,182,0.1), rgba(31,78,121,0.06));
+    color: var(--c-primary);
+  }
+  .skill-card h3 { font-size: 16px; font-weight: 700; color: var(--c-text); margin-bottom: 12px; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .skill-tag {
+    font-size: 12px; padding: 4px 10px; background: var(--c-bg-alt);
+    color: var(--c-text-muted); border-radius: 100px; font-weight: 500;
+    border: 1px solid var(--c-border-soft);
+  }
+
+  /* Projects */
+  .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .project-card {
+    background: white; border: 1px solid var(--c-border); border-radius: var(--radius);
+    padding: 32px; transition: all .25s; position: relative; overflow: hidden;
+    box-shadow: var(--shadow-sm); display: flex; flex-direction: column;
+  }
+  .project-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--c-primary), var(--c-accent));
+    transform: scaleX(0); transform-origin: left; transition: transform .3s;
+  }
+  .project-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--c-accent-light); }
+  .project-card:hover::before { transform: scaleX(1); }
+  .project-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
+  .project-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    background: linear-gradient(135deg, var(--c-primary), var(--c-accent));
+    color: white; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .project-impact-badge {
+    font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 100px;
+    background: rgba(16,185,129,0.1); color: #047857;
+  }
+  .project-card h3 { font-size: 20px; font-weight: 700; color: var(--c-text); margin-bottom: 10px; line-height: 1.3; }
+  .project-card .project-desc { font-size: 15px; color: var(--c-text-muted); line-height: 1.65; margin-bottom: 18px; flex-grow: 1; }
+  .project-impact-list { margin-bottom: 18px; }
+  .project-impact-list li {
+    list-style: none; font-size: 14px; color: var(--c-text-muted);
+    padding: 6px 0 6px 22px; position: relative;
+  }
+  .project-impact-list li::before {
+    content: '✓'; position: absolute; left: 0; color: var(--c-accent); font-weight: 700;
+  }
+  .project-impact-list li strong { color: var(--c-text); font-weight: 600; }
+  .project-tech { display: flex; flex-wrap: wrap; gap: 6px; padding-top: 18px; border-top: 1px solid var(--c-border-soft); }
+  .project-tech .tech {
+    font-size: 11px; font-family: "SF Mono", Menlo, Consolas, monospace; padding: 4px 9px;
+    background: var(--c-bg-alt); color: var(--c-text-muted); border-radius: 6px; font-weight: 500;
+  }
+
+  /* Experience */
+  .timeline { position: relative; padding-left: 32px; max-width: 880px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 8px; top: 8px; bottom: 8px;
+    width: 2px; background: var(--c-border);
+  }
+  .timeline-item { position: relative; padding-bottom: 36px; }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -28px; top: 6px; width: 16px; height: 16px;
+    border-radius: 50%; background: white; border: 3px solid var(--c-accent);
+    box-shadow: 0 0 0 4px white;
+  }
+  .timeline-role { font-size: 20px; font-weight: 700; color: var(--c-text); margin-bottom: 4px; }
+  .timeline-company { font-size: 15px; color: var(--c-accent); font-weight: 600; margin-bottom: 4px; }
+  .timeline-meta { font-size: 13px; color: var(--c-text-faint); margin-bottom: 16px; }
+  .timeline-pillars { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .pillar { padding: 16px; background: white; border: 1px solid var(--c-border-soft); border-radius: var(--radius-sm); }
+  .pillar-title { font-size: 13px; font-weight: 700; color: var(--c-primary); margin-bottom: 8px;
+    text-transform: uppercase; letter-spacing: .04em; }
+  .pillar p { font-size: 14px; color: var(--c-text-muted); line-height: 1.6; }
+
+  /* Contact */
+  .contact-section { background: linear-gradient(135deg, var(--c-primary) 0%, var(--c-accent) 100%); color: white; }
+  .contact-section .section-tag { color: rgba(255,255,255,0.85); }
+  .contact-section .section-title { color: white; }
+  .contact-section .section-desc { color: rgba(255,255,255,0.85); }
+  .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 48px; }
+  .contact-link {
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+    border-radius: var(--radius); padding: 22px; color: white; text-decoration: none;
+    display: flex; align-items: center; gap: 14px; transition: all .25s;
+    backdrop-filter: blur(8px);
+  }
+  .contact-link:hover { background: rgba(255,255,255,0.18); transform: translateY(-2px); border-color: rgba(255,255,255,0.4); }
+  .contact-link .ci {
+    width: 44px; height: 44px; background: rgba(255,255,255,0.18); border-radius: 10px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .contact-link .cl-label { font-size: 12px; color: rgba(255,255,255,0.7); margin-bottom: 2px;
+    text-transform: uppercase; letter-spacing: .06em; font-weight: 600; }
+  .contact-link .cl-value { font-size: 14px; font-weight: 600; overflow-wrap: break-word; word-break: normal; }
+
+  /* Footer */
+  footer { padding: 32px; border-top: 1px solid var(--c-border); text-align: center;
+    color: var(--c-text-faint); font-size: 14px; background: var(--c-bg); }
+
+  /* Awards strip */
+  .award-card {
+    display: flex; align-items: center; gap: 20px; padding: 24px; background: white;
+    border: 1px solid var(--c-border); border-radius: var(--radius); box-shadow: var(--shadow-sm);
+  }
+  .award-icon {
+    width: 56px; height: 56px; border-radius: 14px; flex-shrink: 0;
+    background: linear-gradient(135deg, #FCD34D, #F59E0B); color: white;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .award-card h4 { font-size: 17px; font-weight: 700; color: var(--c-text); margin-bottom: 4px; }
+  .award-card p { font-size: 14px; color: var(--c-text-muted); }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    nav .nav-links { display: none; }
+    .menu-btn { display: block; }
+    .hero-stats { grid-template-columns: repeat(2, 1fr); }
+    .about-grid { grid-template-columns: 1fr; gap: 32px; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .timeline-pillars { grid-template-columns: 1fr; }
+    section { padding: 72px 24px; }
+    .hero { padding: 100px 24px 60px; }
+    nav .nav-inner { padding: 14px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav" id="topnav">
+  <div class="nav-inner">
+    <div class="brand" onclick="window.scrollTo({top:0,behavior:'smooth'})">Lakshmepriya<span>.</span></div>
+    <div class="nav-links">
+      <a href="#about" data-link="about">About</a>
+      <a href="#skills" data-link="skills">Skills</a>
+      <a href="#projects" data-link="projects">Projects</a>
+      <a href="#experience" data-link="experience">Experience</a>
+      <a href="#contact" data-link="contact">Contact</a>
+    </div>
+    <button class="menu-btn" aria-label="Toggle menu" onclick="document.getElementById('topnav').classList.toggle('menu-open')">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="mobile-menu">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#experience">Experience</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<section class="hero" id="top">
+  <div class="hero-inner">
+    <div class="hero-eyebrow reveal"><span class="dot"></span>Available for new opportunities</div>
+    <h1 class="reveal">Hi, I'm Lakshmepriya<br/><span class="accent">DevOps Engineer</span></h1>
+    <p class="subtitle reveal">AWS Cloud Specialist · CI/CD Automation Expert · DevSecOps</p>
+    <p class="desc reveal">I build secure, scalable cloud infrastructure and automate the path from code to production — with 4+ years optimizing AWS environments, hardening pipelines, and turning manual ops into self-healing systems.</p>
+    <div class="hero-cta reveal">
+      <a href="#projects" class="btn btn-primary">View my work
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <a href="#contact" class="btn btn-secondary">Get in touch</a>
+    </div>
+    <div class="hero-stats reveal">
+      <div class="stat"><div class="num" data-counter="4" data-suffix="+">0</div><div class="label">Years Experience</div></div>
+      <div class="stat"><div class="num" data-counter="60" data-suffix="%">0</div><div class="label">Faster Deploys</div></div>
+      <div class="stat"><div class="num" data-prefix="$" data-counter="50" data-suffix="K+">$0</div><div class="label">Cloud Savings</div></div>
+      <div class="stat"><div class="num" data-counter="50" data-suffix="+">0</div><div class="label">Services Monitored</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">About Me</div>
+      <h2 class="section-title">Engineering reliability into every layer of the stack</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>I'm a <strong>DevOps Engineer</strong> based in Salem, India, currently with FoodHub Software Solutions in Chennai. For the last four years, I've focused on the parts of software delivery that nobody sees but everyone depends on — the pipelines, the infrastructure, the guardrails, the alerts.</p>
+        <p>My work spans the full DevOps lifecycle: architecting <strong>AWS infrastructure</strong> across SIT, PreProd, and Production environments; building <strong>CI/CD pipelines</strong> with embedded security scans; managing fleets with <strong>Kubernetes and ECS Fargate</strong>; and operating an observability stack across <strong>50+ microservices</strong>.</p>
+        <p>I gravitate toward problems where automation removes toil and data drives decisions — like the <strong>LLM-powered cost advisor</strong> I built that surfaced over $50K in annual AWS savings, or the <strong>S3-triggered Ansible pipeline</strong> that eliminated manual env config drift across our fleet. I was honored with the <strong>Star Performance Award (2025)</strong> for these contributions.</p>
+      </div>
+      <div class="about-card reveal">
+        <h4>Quick Facts</h4>
+        <div class="info-row"><span class="k">Role</span><span class="v">DevOps Engineer</span></div>
+        <div class="info-row"><span class="k">Experience</span><span class="v">4+ Years</span></div>
+        <div class="info-row"><span class="k">Specialty</span><span class="v">AWS · CI/CD · DevSecOps</span></div>
+        <div class="info-row"><span class="k">Location</span><span class="v">Salem, India</span></div>
+        <div class="info-row"><span class="k">Education</span><span class="v">B.E. ECE</span></div>
+        <div class="info-row"><span class="k">Award</span><span class="v">Star Performer 2025</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills" class="alt">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">What I Work With</div>
+      <h2 class="section-title">Skills & Tech Stack</h2>
+      <p class="section-desc">Battle-tested tools across cloud, automation, security, and observability — shaped by four years of running production systems for a high-volume food delivery platform.</p>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <div class="skill-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19a4.5 4.5 0 1 0 0-9h-1.8a7 7 0 1 0-13.4 3"/><path d="M2 19h12"/></svg></div>
+        <h3>Cloud & Infrastructure</h3>
+        <div class="skill-tags"><span class="skill-tag">AWS EKS</span><span class="skill-tag">ECS Fargate</span><span class="skill-tag">Lambda</span><span class="skill-tag">CloudFront</span><span class="skill-tag">S3</span><span class="skill-tag">ALB</span><span class="skill-tag">VPC</span><span class="skill-tag">CloudWatch</span><span class="skill-tag">Multi-Environment</span></div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+        <h3>DevOps & Automation</h3>
+        <div class="skill-tags"><span class="skill-tag">Jenkins</span><span class="skill-tag">Octopus Deploy</span><span class="skill-tag">Terraform</span><span class="skill-tag">Ansible</span><span class="skill-tag">ArgoCD</span><span class="skill-tag">GitOps</span></div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <h3>Security & Compliance</h3>
+        <div class="skill-tags"><span class="skill-tag">DevSecOps</span><span class="skill-tag">SonarQube</span><span class="skill-tag">Gitleaks</span><span class="skill-tag">Secret Detection</span><span class="skill-tag">AWS CodeBuild</span><span class="skill-tag">Security Hardening</span></div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="1"/><path d="M6 12h.01M10 12h.01M14 12h.01M18 12h.01"/></svg></div>
+        <h3>Containerization</h3>
+        <div class="skill-tags"><span class="skill-tag">Docker</span><span class="skill-tag">Kubernetes</span><span class="skill-tag">ECS Fargate</span><span class="skill-tag">Container Orchestration</span></div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <h3>Monitoring & Observability</h3>
+        <div class="skill-tags"><span class="skill-tag">Grafana</span><span class="skill-tag">Prometheus</span><span class="skill-tag">Mimir</span><span class="skill-tag">New Relic</span><span class="skill-tag">Datadog</span><span class="skill-tag">OpenSearch</span><span class="skill-tag">ELK Stack</span><span class="skill-tag">FluentBit</span></div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+        <h3>Tools & Platforms</h3>
+        <div class="skill-tags"><span class="skill-tag">Git</span><span class="skill-tag">GitHub</span><span class="skill-tag">JIRA</span><span class="skill-tag">Cloudflare</span><span class="skill-tag">Linux</span><span class="skill-tag">Monyog</span><span class="skill-tag">AWS CodeDeploy</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Featured Work</div>
+      <h2 class="section-title">Projects that moved the needle</h2>
+      <p class="section-desc">A selection of the systems I've designed and shipped — each one solving a specific operational problem with measurable outcomes.</p>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card reveal">
+        <div class="project-header">
+          <div class="project-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2z"/><path d="M14.5 2a2.5 2.5 0 0 0-2.5 2.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2z"/></svg></div>
+          <span class="project-impact-badge">$50K+ saved</span>
+        </div>
+        <h3>LLM-Powered AWS Cost Advisor</h3>
+        <p class="project-desc">Built an LLM-driven analytics tool that ingests AWS billing and CloudWatch data, automatically detects cost anomalies, and generates plain-English optimization recommendations for engineering teams.</p>
+        <ul class="project-impact-list">
+          <li>Identified <strong>$50,000+ in annual savings</strong> opportunities</li>
+          <li>Translated complex billing data into actionable insights</li>
+          <li>Surfaced anomalies before they hit monthly invoices</li>
+        </ul>
+        <div class="project-tech"><span class="tech">Python</span><span class="tech">AWS Cost Explorer</span><span class="tech">CloudWatch</span><span class="tech">LLM APIs</span><span class="tech">Lambda</span></div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-header">
+          <div class="project-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg></div>
+          <span class="project-impact-badge">Zero drift</span>
+        </div>
+        <h3>Automated Environment Config Pipeline</h3>
+        <p class="project-desc">Designed an end-to-end automation flow where any update to a master env file in S3 automatically triggers Jenkins, which executes an Ansible playbook against a dynamic inventory of EC2 instances grouped by tags, propagating config changes fleet-wide in seconds.</p>
+        <ul class="project-impact-list">
+          <li>Eliminated <strong>manual config drift</strong> across distributed servers</li>
+          <li>Sub-minute env propagation across the entire fleet</li>
+          <li>Self-healing inventory that auto-discovers new instances</li>
+        </ul>
+        <div class="project-tech"><span class="tech">AWS S3</span><span class="tech">Jenkins</span><span class="tech">Ansible</span><span class="tech">Dynamic Inventory</span><span class="tech">EC2</span></div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-header">
+          <div class="project-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg></div>
+          <span class="project-impact-badge">60% faster deploys</span>
+        </div>
+        <h3>Secure CI/CD for 15+ Microservices</h3>
+        <p class="project-desc">Engineered Jenkins multi-branch pipelines with embedded security gates: SonarQube for static analysis, Gitleaks for secret detection, and AWS CodeBuild + CodeDeploy for artifact packaging and rollout across SIT, PreProd, and Production environments.</p>
+        <ul class="project-impact-list">
+          <li><strong>60%</strong> reduction in deployment time across services</li>
+          <li><strong>40+ security vulnerabilities</strong> caught before production</li>
+          <li><strong>75%</strong> fewer release conflicts via parallel pipelines</li>
+        </ul>
+        <div class="project-tech"><span class="tech">Jenkins</span><span class="tech">SonarQube</span><span class="tech">Gitleaks</span><span class="tech">CodeBuild</span><span class="tech">CodeDeploy</span><span class="tech">GitHub</span></div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-header">
+          <div class="project-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>
+          <span class="project-impact-badge">65% lower MTTR</span>
+        </div>
+        <h3>Real-Time Observability Stack</h3>
+        <p class="project-desc">Designed and rolled out a unified observability platform spanning 50+ services: Grafana dashboards on Prometheus/Mimir for metrics, ELK + FluentBit for centralized logging, and New Relic + Datadog for APM and distributed tracing.</p>
+        <ul class="project-impact-list">
+          <li><strong>65%</strong> reduction in mean time to resolution</li>
+          <li><strong>70%</strong> faster root cause analysis on incidents</li>
+          <li>Proactive bottleneck detection before user impact</li>
+        </ul>
+        <div class="project-tech"><span class="tech">Grafana</span><span class="tech">Prometheus</span><span class="tech">Mimir</span><span class="tech">FluentBit</span><span class="tech">ELK</span><span class="tech">New Relic</span><span class="tech">Datadog</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience" class="alt">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Career</div>
+      <h2 class="section-title">Experience</h2>
+    </div>
+    <div class="timeline reveal">
+      <div class="timeline-item">
+        <div class="timeline-role">DevOps Engineer</div>
+        <div class="timeline-company">FoodHub Software Solutions · Chennai, India</div>
+        <div class="timeline-meta">October 2021 — Present</div>
+        <div class="timeline-pillars">
+          <div class="pillar"><div class="pillar-title">DevSecOps & CI/CD</div><p>Built secure Jenkins pipelines for 15+ microservices, integrated SonarQube + Gitleaks, automated 85% of release workflows via Octopus Deploy.</p></div>
+          <div class="pillar"><div class="pillar-title">AWS Infrastructure</div><p>Architected EKS, ECS Fargate, Lambda, ALB, CloudFront across multi-environment deployments. Cut cloud costs by 30% via NAT Gateway optimization.</p></div>
+          <div class="pillar"><div class="pillar-title">Observability</div><p>Designed Grafana + Prometheus dashboards across 50+ services, centralized ELK logging — reduced MTTR by 65% and RCA time by 70%.</p></div>
+          <div class="pillar"><div class="pillar-title">Innovation</div><p>Built LLM-powered AWS cost advisor identifying $50K+ in annual savings. Recognized with the Star Performance Award (2025).</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 56px;" class="reveal">
+      <div class="award-card">
+        <div class="award-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg></div>
+        <div>
+          <h4>Star Performance Award · 2025</h4>
+          <p>Recognized for outstanding contributions in CI/CD automation, security implementation, and deployment governance — initiatives that improved team productivity by 45%.</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 56px;" class="reveal">
+      <div class="section-header" style="margin-bottom: 24px;">
+        <h3 style="font-size: 22px; font-weight: 700; color: var(--c-text);">Education</h3>
+      </div>
+      <div class="award-card">
+        <div class="award-icon" style="background: linear-gradient(135deg, var(--c-primary), var(--c-accent));"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+        <div>
+          <h4>Bachelor of Engineering · Electronics and Communication Engineering</h4>
+          <p>Velalar College of Engineering and Technology · Erode, India · Graduated May 2021</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Get in Touch</div>
+      <h2 class="section-title">Let's build reliable systems together</h2>
+      <p class="section-desc">I'm open to DevOps, SRE, and cloud engineering opportunities. Reach out through any of the channels below — I usually reply within a day.</p>
+    </div>
+    <div class="contact-grid reveal">
+      <a href="mailto:lakshmepriya892@gmail.com" class="contact-link">
+        <div class="ci"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+        <div><div class="cl-label">Email</div><div class="cl-value">lakshmepriya892@gmail.com</div></div>
+      </a>
+      <a href="tel:+918667589335" class="contact-link">
+        <div class="ci"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+        <div><div class="cl-label">Phone</div><div class="cl-value">+91 86675 89335</div></div>
+      </a>
+      <a href="https://linkedin.com/in/lakshme-priya-082519172" target="_blank" rel="noopener noreferrer" class="contact-link">
+        <div class="ci"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div>
+        <div><div class="cl-label">LinkedIn</div><div class="cl-value">lakshme-priya</div></div>
+      </a>
+      <div class="contact-link" style="cursor: default;">
+        <div class="ci"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <div><div class="cl-label">Location</div><div class="cl-value">Salem, India</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>© <span id="year"></span> Lakshmepriya R · Built with care · DevOps Engineer</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Sticky nav state
+  const nav = document.getElementById('topnav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 12);
+  });
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const revealIO = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        revealIO.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  revealEls.forEach(el => revealIO.observe(el));
+
+  // Counter animation
+  const counterEls = document.querySelectorAll('[data-counter]');
+  const counterIO = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting || e.target.dataset.done) return;
+      e.target.dataset.done = 'true';
+      const end = parseInt(e.target.dataset.counter, 10);
+      const suffix = e.target.dataset.suffix || '';
+      const prefix = e.target.dataset.prefix || '';
+      const duration = 1400;
+      const start = performance.now();
+      const tick = (now) => {
+        const t = Math.min(1, (now - start) / duration);
+        const eased = 1 - Math.pow(1 - t, 3);
+        e.target.textContent = prefix + Math.round(end * eased) + suffix;
+        if (t < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    });
+  }, { threshold: 0.4 });
+  counterEls.forEach(el => counterIO.observe(el));
+
+  // Scrollspy
+  const navLinks = document.querySelectorAll('.nav-links a[data-link]');
+  const sections = ['about','skills','projects','experience','contact'].map(id => document.getElementById(id));
+  const spyIO = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(a => a.classList.toggle('active', a.dataset.link === e.target.id));
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  sections.forEach(s => s && spyIO.observe(s));
+
+  // Close mobile menu on link click
+  document.querySelectorAll('.mobile-menu a').forEach(a => {
+    a.addEventListener('click', () => nav.classList.remove('menu-open'));
+  });
+</script>
+
+</body>
+</html>
